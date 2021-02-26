@@ -1,0 +1,6 @@
+- name: Install Snap Store
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == "Debian"
