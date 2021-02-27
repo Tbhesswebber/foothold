@@ -27,4 +27,4 @@ sleep 0.5
 echo
 echo "You should be good to step away from your computer at this point."
 
-ansible-playbook ./local.yml
+ansible-playbook -K ./local.yml
