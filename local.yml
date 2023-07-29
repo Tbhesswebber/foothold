@@ -1,9 +1,13 @@
-- hosts: ["localhost"]
+- hosts: localhost
   become: true
   tasks:
-    - include_tasks: ./tasks/required.yml
+    - include_tasks:
+        file: ./tasks/required.yml
+        apply:
+          tags:
+            - required
+            - always
       tags:
-        - required
         - always
     - include_tasks:
         file: ./tasks/debug.yml
@@ -11,4 +15,9 @@
           tags: debug
       tags:
         - never
-        - debug
+    - include_tasks:
+        file: ./tasks/general.yml
+        apply:
+          tags: general
+      tags:
+        - always

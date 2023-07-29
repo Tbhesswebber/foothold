@@ -1,0 +1,103 @@
+- name: Install Slack
+  community.general.homebrew_cask:
+    name: slack
+    state: present
+    accept_external_apps: true
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+    - core
+    - slack
+- name: Install Slack
+  community.general.snap:
+    name: slack
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - core
+    - slack
+
+- name: Install Chrome
+  community.general.homebrew_cask:
+    name: google-chrome
+    state: present
+    accept_external_apps: true
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+    - core
+    - chrome
+- name: Check Chrome
+  shell: >
+    command -v zoom
+  register: needsChrome
+  ignore_errors: true
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - chrome
+    - core
+- name: Download Chrome
+  shell:
+    cmd: >
+      wget -q wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  when: ansible_facts['os_family'] == "Debian" and needsChrome.rc != 0
+  tags:
+    - chrome
+    - core
+- name: Install Chrome
+  ansible.builtin.apt:
+    deb: google-chrome-stable_current_amd64.deb
+    state: present
+  when: ansible_facts['os_family'] == "Debian" and needsChrome.rc != 0
+  tags:
+    - chrome
+    - core
+- name: Remove Chrome Installer
+  shell:
+    cmd: >
+      rm -f ./google-chrome-stable_current_amd64.deb
+  when: ansible_facts['os_family'] == "Debian" and needsChrome.rc != 0
+  tags:
+    - chrome
+    - core
+
+- name: Install Zoom
+  community.general.homebrew_cask:
+    name: zoom
+    state: present
+    accept_external_apps: true
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+    - conferencing
+    - zoom
+- name: Check Zoom
+  shell: >
+    command -v zoom
+  register: needsZoom
+  ignore_errors: true
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - conferencing
+    - zoom
+- name: Download Zoom
+  shell:
+    cmd: >
+      wget -q https://zoom.us/client/5.15.5.5603/zoom_amd64.deb
+  when: ansible_facts['os_family'] == "Debian" and needsZoom.rc != 0
+  tags:
+    - conferencing
+    - zoom
+- name: Install Zoom
+  ansible.builtin.apt:
+    deb: zoom_amd64.deb
+    state: present
+  when: ansible_facts['os_family'] == "Debian" and needsZoom.rc != 0
+  tags:
+    - conferencing
+    - zoom
+- name: Remove Zoom Installer
+  shell:
+    cmd: >
+      rm -f ./zoom_amd64.deb
+  when: ansible_facts['os_family'] == "Debian" and needsZoom.rc != 0
+  tags:
+    - conferencing
+    - zoom
