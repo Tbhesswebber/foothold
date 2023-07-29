@@ -1,3 +1,19 @@
+IS_M1_MAC=false
+
+if sysctl -n machdep.cpu.brand_string 2> /dev/null | grep -q "^Apple M1"
+then
+    IS_M1_MAC=true
+fi
+
+if "$IS_M1_MAC" && [[ $(uname -p) == "arm" ]]
+then
+    echo
+    echo "Let's install Rosetta for M1 chip compatibility..."
+    sleep 0.5
+
+    sudo softwareupdate --install-rosetta
+fi
+
 export HOMEBREW_NO_ENV_HINTS=true
 # If Homebrew is not installed install it, otherwise update it
 if [[ $(command -v brew) == "" ]]
