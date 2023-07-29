@@ -1,4 +1,4 @@
-# Scaffold
+# Foothold
 
 The quickest way to get a computer set up with all the tools I want and some I don't.
 
@@ -6,10 +6,16 @@ The quickest way to get a computer set up with all the tools I want and some I d
 
 ### Installed Tools
 
-| Tool | Package Managers | Notes |
-|------|------|------|
-|GitHub CLI | `brew` `apt` | Installed and configured as part of setup |
+| Tool       | Package Managers | Notes                                                                                     |
+| ---------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| GitHub CLI | `brew` `apt`     | Installed and configured as part of setup (unnecessarily? - could move setup to post-run) |
+| Snap Store | `apt`            | Need to ensure snap is installed for certain tools                                        |
+| Slack      | `brew` `apt`     |                                                                                           |
+| Chrome     | `brew` `apt`     |                                                                                           |
+| Zoom       | `brew` `apt`     |                                                                                           |
 
+| Z Shell | `apt` | Already installed on Mac |
+| Oh My Zsh | | All machines (needs curl first) |
 
 ## Running the script
 
