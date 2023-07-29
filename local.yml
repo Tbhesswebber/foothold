@@ -21,3 +21,11 @@
           tags: general
       tags:
         - always
+    - include_tasks:
+        file: ./tasks/shell.yml
+        apply:
+          tags:
+            - shell
+            - terminal
+      tags:
+        - always

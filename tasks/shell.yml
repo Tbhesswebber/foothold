@@ -1,0 +1,20 @@
+- name: Install Zsh
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - zsh
+
+- name: Check Oh My Zsh Installation
+  shell: >
+    command -v omz
+  register: omz_install
+  ignore_errors: true
+  tags:
+    - zsh
+- name: Install Oh My Zsh
+  shell: curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+  when: omz_install.rc != 0
+  tags:
+    - zsh
